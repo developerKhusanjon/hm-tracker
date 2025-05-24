@@ -1,4 +1,4 @@
-package com.hmtacker.repos.postgres
+package com.hmtacker.repos
 
 import cats.effect.IO
 import cats.implicits.*
@@ -13,7 +13,7 @@ import doobie.util.transactor.Transactor
 import java.time.LocalDateTime
 import java.util.UUID
 
-class PostgresTaskStateTransitionRepository(xa: Transactor[IO]) extends TaskStateTransitionRepository:
+class TaskStateTransitionRepositoryImpl(xa: Transactor[IO]) extends TaskStateTransitionRepository:
 
   def create(transition: TaskStateTransition): IO[TaskStateTransition] =
     sql"""

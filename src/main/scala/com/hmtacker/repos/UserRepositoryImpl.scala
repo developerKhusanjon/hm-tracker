@@ -1,4 +1,4 @@
-package com.hmtacker.repos.postgres
+package com.hmtacker.repos
 
 import cats.effect.IO
 import cats.implicits.*

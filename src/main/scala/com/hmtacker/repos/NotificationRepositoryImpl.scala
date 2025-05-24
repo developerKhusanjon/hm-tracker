@@ -1,4 +1,4 @@
-package com.hmtacker.repos.postgres
+package com.hmtacker.repos
 
 import cats.effect.IO
 import cats.implicits.*
@@ -13,7 +13,7 @@ import doobie.util.transactor.Transactor
 import java.time.LocalDateTime
 import java.util.UUID
 
-class PostgresNotificationRepository(xa: Transactor[IO]) extends NotificationRepository:
+class NotificationRepositoryImpl(xa: Transactor[IO]) extends NotificationRepository:
 
   def create(notification: Notification): IO[Notification] =
     sql"""

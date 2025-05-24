@@ -12,7 +12,6 @@ import com.comcast.ip4s.*
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import com.hmtacker.config.*
-import com.hmtacker.repos.postgres.*
 import com.hmtacker.services.*
 import com.hmtacker.repos.*
 import com.hmtacker.api.*
@@ -48,10 +47,10 @@ object HomeTaskTrackerApp extends IOApp.Simple:
 
   private def createServices(xa: HikariTransactor[IO]) = {
     val userRepo = new PostgresUserRepository(xa)
-    val courseRepo = new PostgresCourseRepository(xa)
-    val taskRepo = new PostgresTaskRepository(xa)
-    val notificationRepo = new PostgresNotificationRepository(xa)
-    val transitionRepo = new PostgresTaskStateTransitionRepository(xa)
+    val courseRepo = new CourseRepositoryImpl(xa)
+    val taskRepo = new TaskRepositoryImpl(xa)
+    val notificationRepo = new NotificationRepositoryImpl(xa)
+    val transitionRepo = new TaskStateTransitionRepositoryImpl(xa)
 
     val fcmService = new FcmService()
     val notificationService = new NotificationService(notificationRepo, fcmService, userRepo)
