@@ -8,7 +8,7 @@ import com.hmtacker.domain.*
 import com.hmtacker.repos.*
 
 class TaskService(
-                   taskRepo: TaskRepository,
+                   val taskRepo: TaskRepository,
                    transitionRepo: TaskStateTransitionRepository,
                    notificationService: NotificationService
                  ):

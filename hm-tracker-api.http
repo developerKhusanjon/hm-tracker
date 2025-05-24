@@ -1,0 +1,52 @@
+### 1. Create User
+POST http://localhost:8080/api/v1/users
+Content-Type: application/json
+
+{
+  "email": "student@university.edu",
+  "firstName": "John",
+  "lastName": "Doe",
+  "fcmToken": "firebase_token_here"
+}
+
+###
+
+### 2. Create Task
+POST http://localhost:8080/api/v1/users/{{userId}}/tasks
+Content-Type: application/json
+
+{
+  "courseId": "course-uuid",
+  "title": "Complete Math Homework",
+  "description": "Solve problems 1-20 from chapter 5",
+  "priority": "High",
+  "dueDate": "2024-12-25T23:59:00",
+  "estimatedDuration": 120,
+  "tags": ["homework", "mathematics"]
+}
+
+###
+
+### 3. Update Task State
+PUT http://localhost:8080/api/v1/tasks/{{taskId}}/state
+Content-Type: application/json
+
+{
+  "state": "InProgress",
+  "reason": "Started working on task"
+}
+
+###
+
+### 4. Get Tasks by State
+GET http://localhost:8080/api/v1/users/{{userId}}/tasks/state/InProgress
+
+###
+
+### 5. Start Task
+PUT http://localhost:8080/api/v1/tasks/{{taskId}}/start
+
+###
+
+### 6. Complete Task
+PUT http://localhost:8080/api/v1/tasks/{{taskId}}/complete
