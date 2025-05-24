@@ -14,9 +14,9 @@ import java.time.LocalDateTime
 import java.util.UUID
 
 // Custom Meta instances for enums
-given Meta[TaskState] = pgEnumStringOpt("task_state", TaskState.valueOf, _.toString)
-given Meta[Priority] = pgEnumStringOpt("priority", Priority.valueOf, _.toString)
-given Meta[Subject] = pgEnumStringOpt("subject", Subject.valueOf, _.toString)
+given Meta[TaskState] = pgEnumString("task_state", TaskState.valueOf, _.toString)
+given Meta[Priority] = pgEnumString("priority", Priority.valueOf, _.toString)
+given Meta[Subject] = pgEnumString("subject", Subject.valueOf, _.toString)
 given Meta[UserId] = Meta[UUID].timap(UserId.apply)(_.value)
 given Meta[TaskId] = Meta[UUID].timap(TaskId.apply)(_.value)
 given Meta[CourseId] = Meta[UUID].timap(CourseId.apply)(_.value)
@@ -26,7 +26,7 @@ class PostgresUserRepository(xa: Transactor[IO]) extends UserRepository:
   def create(user: User): IO[User] =
     sql"""
       INSERT INTO users (id, email, first_name, last_name, fcm_token, created_at, updated_at)
-      VALUES (${user.id}, ${user.email}, ${user.firstName}, ${user.lastName}, 
+      VALUES (${user.id}, ${user.email}, ${user.firstName}, ${user.lastName},
               ${user.fcmToken}, ${user.createdAt}, ${user.updatedAt})
     """.update.run.transact(xa) *> IO.pure(user)
 
@@ -44,8 +44,8 @@ class PostgresUserRepository(xa: Transactor[IO]) extends UserRepository:
 
   def update(user: User): IO[User] =
     sql"""
-      UPDATE users 
-      SET email = ${user.email}, first_name = ${user.firstName}, 
+      UPDATE users
+      SET email = ${user.email}, first_name = ${user.firstName},
           last_name = ${user.lastName}, fcm_token = ${user.fcmToken},
           updated_at = ${user.updatedAt}
       WHERE id = ${user.id}
